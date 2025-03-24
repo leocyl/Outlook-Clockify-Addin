@@ -1,0 +1,39 @@
+/* Ensure full height and width */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the tag dropdown */
+#tagSelect {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Add subtle shadows to cards */
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header .btn-link {
+    margin: 0;
+    padding: 0.125rem 0.125rem; /* Smaller padding for a compact look */
+}
+
+/* Modernize input fields */
+.form-control {
+    border-radius: 4px;
+}
+
+/* Ensure message area is noticeable */
+#messageArea {
+    color: #d9534f; /* Bootstrap's danger red */
+    margin-top: 10px;
+}
+
+#newTaskMessageArea {
+    color: #d9534f; /* Bootstrap's danger red */
+    margin-top: 10px;
+}
