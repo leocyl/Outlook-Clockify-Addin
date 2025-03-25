@@ -3,7 +3,6 @@ let apiKey;
 Office.onReady(() => {
     console.log('Office.js is ready');
     initializeAddIn();
-    applySavedTheme();
 }).catch(error => {
     console.error('Error initializing Office:', error);
 });
@@ -11,8 +10,6 @@ Office.onReady(() => {
 function initializeAddIn() {
   console.log('Office is ready');
   retrieveApiKey();
-  applySavedTheme();
-  document.getElementById('toggleTheme').addEventListener('click', toggleTheme); // Add event listener
   document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
   document.getElementById('workspaceSelect').addEventListener('change', onWorkspaceSelect);
   document.getElementById('projectSelect').addEventListener('change', onProjectSelect);
@@ -22,23 +19,6 @@ function initializeAddIn() {
   document.getElementById('saveNewTask').addEventListener('click', handleSaveNewTask);
   document.getElementById('createTimeEntry').addEventListener('click', createTimeEntry);
   console.log(document.getElementById('toggleTheme'));
-}
-
-// Function to apply the saved theme on load
-function applySavedTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
-    } else {
-        document.body.classList.remove('dark-theme');
-    }
-}
-
-// Function to toggle theme and save preference
-function toggleTheme() {
-    document.body.classList.toggle('dark-theme');
-    const isDark = document.body.classList.contains('dark-theme');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
 function showApiKeySection() {
@@ -51,7 +31,6 @@ function saveApiKey() {
     localStorage.setItem('apiKey', apiKey);
     localStorage.removeItem('selectedWorkspaceId');
     console.log('API key saved to localStorage');
-    //document.getElementById('settings').style.display = 'none';
     showWorkspaceSelection();
     fetchWorkspaces(apiKey);
     setDefaultDescription();
@@ -117,7 +96,7 @@ function onWorkspaceSelect(event) {
     const workspaceId = event.target.value;
     if (workspaceId) {
         localStorage.setItem('selectedWorkspaceId', workspaceId);
-        document.getElementById('projectTaskSelection').style.display = 'block';
+        $('#projectTaskCollapse').collapse('show');
         $('#configCollapse').collapse('hide'); // Collapse configuration
         fetchProjects(workspaceId, apiKey);
         fetchTags(workspaceId, apiKey);
@@ -344,42 +323,7 @@ function createTimeEntry() {
   })
   .then(response => {
     if (response.ok) {
-      showMessage('Time entry created successfully');
-    } else {
-      response.text().then(text => showMessage(`Failed to create time entry: ${text}`));
-    }
-  })
-  .catch(error => showMessage('Error creating time entry: ' + error.message));
-}
-
-// Helper function to create the Clockify time entry
-function createClockifyTimeEntry(workspaceId, projectId, taskId, description, tagIds, startDate, endDate) {
-  const timeEntry = {
-    description: description,
-    end: endDate.toISOString(),
-    projectId: projectId,
-    start: startDate.toISOString(),
-    tagIds: tagIds,
-    taskId: taskId,
-    billable: false, // Default value
-    type: "REGULAR" // Default value
-  };
-
-  // Only include taskId if it’s not an empty string
-  if (taskId && taskId.trim() !== '') {
-    timeEntry.taskId = taskId;
-  }
-
-  fetch(`https://api.clockify.me/api/v1/workspaces/${workspaceId}/time-entries`, {
-    method: 'POST',
-    headers: {
-      'X-Api-Key': apiKey, // Ensure apiKey is defined in your code (e.g., from localStorage)
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(timeEntry)
-  })
-  .then(response => {
-    if (response.ok) {
+			$('#projectTaskCollapse').collapse('hide');
       showMessage('Time entry created successfully');
     } else {
       response.text().then(text => showMessage(`Failed to create time entry: ${text}`));

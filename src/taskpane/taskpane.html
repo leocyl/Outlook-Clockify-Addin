@@ -43,7 +43,9 @@
               </div>
             </div>
           </div>
+
           <!-- Project and Task Selection (Always Visible After Setup) -->
+<!--
           <div id="projectTaskSelection" class="card mb-3" style="display: none;">
             <div class="card-body">
               <h6 class="card-title">Select Project and Task</h6>
@@ -69,6 +71,41 @@
               <input type="datetime-local" class="form-control mb-2" id="endTime" />
             </div>
           </div>
+-->
+					<div class="card mb-3">
+						<div class="card-header" id="projectTaskHeader">
+								<h5 class="mb-0">
+										<button class="btn btn-link" data-toggle="collapse" data-target="#projectTaskCollapse" aria-expanded="false" aria-controls="projectTaskCollapse">
+												<b>Project and Task Selection</b>
+										</button>
+								</h5>
+						</div>
+						<div id="projectTaskCollapse" class="collapse" aria-labelledby="projectTaskHeader">
+								<div class="card-body">
+										<h6 class="card-title">Select Project and Task</h6>
+										<select id="projectSelect" class="form-control mb-2">
+												<option value="">Select Project</option>
+										</select>
+										<select id="taskSelect" class="form-control mb-2">
+												<option value="">Select Task</option>
+										</select>
+										<button id="addNewTaskButton" class="btn btn-secondary mb-2">Add New Task</button>
+										<div id="newTaskForm" style="display: none;">
+												<input type="text" class="form-control mb-2" id="newTaskName" placeholder="Enter new task name" />
+												<button id="saveNewTask" class="btn btn-primary">Save Task</button>
+										</div>
+										<div id="newTaskMessageArea" style="display: none; margin-top: 10px;"></div>
+										<h6 class="mt-3">Select Tags</h6>
+										<select id="tagSelect" multiple class="form-control mb-2" size="8"></select>
+										<h6>Enter Description</h6>
+										<input type="text" class="form-control mb-2" id="description" placeholder="Enter description" />
+										<h6>Start Time (Local Time Zone)</h6>
+										<input type="datetime-local" class="form-control mb-2" id="startTime" />
+										<h6>End Time (Local Time Zone)</h6>
+										<input type="datetime-local" class="form-control mb-2" id="endTime" />
+								</div>
+						</div>
+					</div>					
           <div class="text-center mt-3">
             <button id="createTimeEntry" class="btn btn-success btn-lg">Create Clockify Entry</button>
             <div id="messageArea" style="display: none; margin-top: 10px;"></div>
