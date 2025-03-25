@@ -6,15 +6,35 @@ html, body {
     padding: 0;
 }
 
+body {
+	display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+}
+
 /* Style the tag dropdown */
 #tagSelect {
     max-height: 200px;
     overflow-y: auto;
 }
 
+#projectTaskCollapse {
+    width: 100%;
+    max-width: 100%;
+}
 /* Add subtle shadows to cards */
 .card {
+	width: 100%;
+    max-width: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    margin: 0;
 }
 
 .card-header .btn-link {
@@ -27,6 +47,11 @@ html, body {
     border-radius: 4px;
 }
 
+/* Add space below the Select Project dropdown, including Select2 styling */
+#projectSelect, .select2-container--default .select2-selection--single {
+    margin-bottom: 1rem !important; /* 16px of space */
+}
+
 /* Ensure message area is noticeable */
 #messageArea {
     color: #d9534f; /* Bootstrap's danger red */
@@ -36,4 +61,45 @@ html, body {
 #newTaskMessageArea {
     color: #d9534f; /* Bootstrap's danger red */
     margin-top: 10px;
+}
+
+.select2-container {
+    width: 100% !important; /* Full width like Bootstrap inputs */
+}
+
+.select2-selection {
+    height: calc(1.5em + .75rem + 2px) !important; /* Match Bootstrap input height */
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da; /* Bootstrap border color */
+    border-radius: .25rem; /* Bootstrap border radius */
+}
+
+.select2-selection__rendered {
+    line-height: 1.5 !important; /* Align text vertically */
+}
+
+.select2-selection__arrow {
+    height: 100% !important; /* Ensure arrow aligns with input */
+}
+
+/* Style the Select2 dropdown menu */
+.select2-dropdown {
+    border: 1px solid #ced4da; /* Matches Bootstrap's border color */
+    border-radius: 4px; /* Matches form control border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle shadow like cards */
+}
+
+/* Style the dropdown options */
+.select2-results__option {
+    padding: .375rem .75rem; /* Matches input padding */
+    font-size: 1rem; /* Matches font size */
+    line-height: 1.5; /* Matches line height */
+}
+
+/* Style the highlighted option */
+.select2-results__option--highlighted {
+    background-color: #e9ecef; /* Bootstrap's light gray for hover */
+    color: #212529; /* Bootstrap's dark text color */
 }

@@ -121,6 +121,18 @@ function fetchProjects(workspaceId, apiKey, page = 1, allProjects = []) {
                 option.text = project.name;
                 projectSelect.add(option);
             });
+
+						// Initialize Select2 for filterable dropdown
+            $('#projectSelect').select2({
+                placeholder: "Select or type to filter projects",
+                allowClear: true // Adds an 'x' to clear the selection
+            });
+
+            // Attach event listener for project selection
+            $('#projectSelect').on('select2:select', function (e) {
+                onProjectSelect(e);
+            });
+
         }
     })
     .catch(error => {
@@ -130,7 +142,7 @@ function fetchProjects(workspaceId, apiKey, page = 1, allProjects = []) {
 }
 
 function onProjectSelect(event) {
-    const projectId = event.target.value;
+    const projectId = event.params.data.id;
     const workspaceId = document.getElementById('workspaceSelect').value;
     if (projectId && workspaceId) {
         fetchTasks(workspaceId, projectId, apiKey);
